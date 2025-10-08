@@ -75,7 +75,7 @@
         <div class="mt-6">{{ $suratMasuk->links() }}</div>
 
         @if($showModal)
-        <div class="fixed inset-0 z-50 overflow-y-auto flex items-center justify-center p-4 bg-black bg-opacity-50">
+        <div class="fixed inset-0 z-50 overflow-y-auto flex items-start justify-center p-4 pt-12 bg-black bg-opacity-50">
             <div class="relative w-full max-w-3xl">
                 <div class="p-6 bg-white border border-gray-200 rounded-lg shadow-xl">
                     <div class="flex justify-between items-center mb-6">
