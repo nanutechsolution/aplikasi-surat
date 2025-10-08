@@ -31,6 +31,8 @@ class KelolaSuratMasuk extends Component
         $this->sifat_surat = 'Biasa';
         $this->tanggal_diterima = now()->format('Y-m-d');
         $this->showModal = true;
+
+
     }
 
     // Method untuk menutup modal

@@ -28,7 +28,29 @@ class KelolaSuratKeluar extends Component
         $this->resetValidation();
         $this->reset();
         $this->isEditMode = false;
+
+        $lastSurat = SuratKeluar::whereYear('tanggal_surat', date('Y'))->latest('id')->first();
+        $nextNumber = 1;
+        if ($lastSurat) {
+            // Ambil nomor urut dari nomor surat (misal: 055 dari 055/SK/...)
+            $lastSequence = (int) explode('/', $lastSurat->nomor_surat)[0];
+            $nextNumber = $lastSequence + 1;
+        }
+
+        // 2. Buat format nomor surat baru
+        // str_pad() digunakan untuk membuat format 3 digit (001, 002, ...)
+        $nomorBaru = sprintf(
+            '%03d/SK/%s/%d',
+            $nextNumber,
+            $this->getRomanMonth(date('n')),
+            date('Y')
+        );
+
+        // 3. Set properti nomor_surat dengan nomor baru
+        $this->nomor_surat = $nomorBaru;
+
         $this->showModal = true;
+
     }
 
     public function edit(SuratKeluar $surat)
@@ -47,11 +69,11 @@ class KelolaSuratKeluar extends Component
     public function save()
     {
         $rules = [
-            'nomor_surat'   => 'required|string|max:255|unique:surat_keluar,nomor_surat,' . ($this->isEditMode ? $this->surat->id : ''),
+            'nomor_surat' => 'required|string|max:255|unique:surat_keluar,nomor_surat,' . ($this->isEditMode ? $this->surat->id : ''),
             'tanggal_surat' => 'required|date',
-            'tujuan'        => 'required|string|max:255',
-            'perihal'       => 'required|string',
-            'fileScan'      => $this->isEditMode ? 'nullable|file|mimes:pdf|max:2048' : 'required|file|mimes:pdf|max:2048',
+            'tujuan' => 'required|string|max:255',
+            'perihal' => 'required|string',
+            'fileScan' => $this->isEditMode ? 'nullable|file|mimes:pdf|max:2048' : 'required|file|mimes:pdf|max:2048',
         ];
 
         $validatedData = $this->validate($rules);
@@ -87,4 +109,10 @@ class KelolaSuratKeluar extends Component
             'suratKeluarList' => SuratKeluar::latest()->paginate(10),
         ]);
     }
+
+    private function getRomanMonth($month)
+{
+    $romans = ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X', 'XI', 'XII'];
+    return $romans[$month - 1];
+}
 }
