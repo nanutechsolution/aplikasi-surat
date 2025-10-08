@@ -5,27 +5,45 @@ namespace App\Livewire;
 use App\Models\SuratMasuk;
 use Livewire\Component;
 use Livewire\WithFileUploads;
-use Livewire\Attributes\Layout;
 use Livewire\WithPagination;
+use Livewire\Attributes\Layout;
+
 class KelolaSuratMasuk extends Component
 {
-    use WithFileUploads;
-    use WithPagination;
+    use WithFileUploads, WithPagination;
 
     #[Layout('layouts.app')]
 
-    public $nomor_surat;
-    public $tanggal_surat;
-    public $tanggal_diterima;
-    public $pengirim;
-    public $perihal;
-    public $sifat_surat = 'Biasa';
-    public $fileScan;
+    // Properti untuk Modal & Form
+    public bool $showModal = false;
+
+    // Properti yang di-binding
+    public $nomor_surat, $tanggal_surat, $tanggal_diterima, $pengirim, $perihal, $sifat_surat = 'Biasa', $fileScan;
+
+    // Properti untuk search
     public string $search = '';
+
+    // Method untuk membuka modal tambah data
+    public function create()
+    {
+        $this->reset();
+        $this->resetValidation();
+        $this->sifat_surat = 'Biasa'; // Set default value
+        $this->showModal = true;
+    }
+
+    // Method untuk menutup modal
+    public function closeModal()
+    {
+        $this->showModal = false;
+        $this->reset();
+        $this->resetValidation();
+    }
+
     protected function rules()
     {
         return [
-            'nomor_surat' => 'required|string|max:255',
+            'nomor_surat' => 'required|string|max:255|unique:surat_masuk',
             'tanggal_surat' => 'required|date',
             'tanggal_diterima' => 'required|date|after_or_equal:tanggal_surat',
             'pengirim' => 'required|string|max:255',
@@ -37,30 +55,17 @@ class KelolaSuratMasuk extends Component
 
     public function simpan()
     {
-        // Jalankan validasi
         $validatedData = $this->validate();
-
-        // Simpan file yang di-upload
         $path = $this->fileScan->store('surat-files', 'public');
 
-        // Simpan data ke database
-        SuratMasuk::create([
-            'nomor_surat' => $this->nomor_surat,
-            'tanggal_surat' => $this->tanggal_surat,
-            'tanggal_diterima' => $this->tanggal_diterima,
-            'pengirim' => $this->pengirim,
-            'perihal' => $this->perihal,
-            'sifat_surat' => $this->sifat_surat,
+        SuratMasuk::create(array_merge($validatedData, [
             'file_path' => $path,
             'user_id' => auth()->id(),
-        ]);
-        $this->dispatch('notify', message: 'Surat berhasil dicatat', type: 'success');
-        // Kirim notifikasi sukses
+        ]));
 
-        // Kosongkan kembali form
-        $this->reset(['nomor_surat', 'tanggal_surat', 'tanggal_diterima', 'pengirim', 'perihal', 'sifat_surat', 'fileScan']);
+        $this->closeModal();
+        $this->dispatch('notify', message: 'Surat masuk berhasil dicatat.', type: 'success');
     }
-
 
     public function updatingSearch(): void
     {
@@ -75,8 +80,8 @@ class KelolaSuratMasuk extends Component
                     ->orWhere('perihal', 'like', "%{$this->search}%")
                     ->orWhere('pengirim', 'like', "%{$this->search}%");
             })
-            ->latest('tanggal_diterima') // Urutkan dari yang terbaru
-            ->paginate(10); // Ambil 10 data per halaman
+            ->latest('tanggal_diterima')
+            ->paginate(10);
 
         return view('livewire.kelola-surat-masuk', [
             'suratMasuk' => $suratMasuk,
