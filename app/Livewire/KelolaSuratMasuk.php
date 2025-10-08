@@ -28,7 +28,8 @@ class KelolaSuratMasuk extends Component
     {
         $this->reset();
         $this->resetValidation();
-        $this->sifat_surat = 'Biasa'; // Set default value
+        $this->sifat_surat = 'Biasa';
+        $this->tanggal_diterima = now()->format('Y-m-d');
         $this->showModal = true;
     }
 
