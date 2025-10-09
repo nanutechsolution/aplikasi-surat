@@ -203,3 +203,32 @@
         </div>
     </div>
 </div>
+
+
+<script type="module">
+    import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+
+    // Fungsi untuk menjalankan atau me-render ulang mermaid
+    function renderMermaid() {
+        // Hapus atribut 'data-processed' agar Mermaid mau me-render ulang elemen yang sama
+        document.querySelectorAll('.mermaid').forEach(el => {
+            el.removeAttribute('data-processed');
+        });
+        mermaid.run();
+    }
+
+    // Jalankan saat halaman pertama kali dimuat
+    mermaid.initialize({ startOnLoad: false }); // startOnLoad kita set false
+    document.addEventListener('DOMContentLoaded', () => {
+        renderMermaid();
+    });
+
+    // Tambahkan listener untuk menangkap sinyal dari Livewire
+    window.addEventListener('rerender-mermaid', event => {
+        // Ambil elemen mermaid dan pastikan isinya sudah terupdate dari Livewire
+        // Kita butuh sedikit delay agar Livewire selesai update DOM
+        setTimeout(() => {
+            renderMermaid();
+        }, 50);
+    });
+</script>

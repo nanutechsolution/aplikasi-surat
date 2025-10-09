@@ -80,6 +80,8 @@ class LihatSurat extends Component
     {
         $this->surat->refresh();
         $this->generateFlowchart();
+
+        $this->dispatch('rerender-mermaid');
     }
     public function render()
     {
