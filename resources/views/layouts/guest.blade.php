@@ -18,7 +18,8 @@
         <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100">
             <div>
                 <a href="/" wire:navigate>
-                    <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
+                    <span class="text-2xl font-bold text-blue-600">E-Surat</span>
+                    {{-- <x-application-logo class="w-20 h-20 fill-current text-gray-500" /> --}}
                 </a>
             </div>
 

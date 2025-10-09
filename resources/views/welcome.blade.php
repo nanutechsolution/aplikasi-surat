@@ -25,11 +25,11 @@
                                 <a href="{{ url('/dashboard') }}" class="text-sm font-semibold text-gray-600 hover:text-gray-900 transition">Dashboard</a>
                             @else
                                 <a href="{{ route('login') }}" class="text-sm font-semibold text-gray-600 hover:text-gray-900 transition">Masuk</a>
-                                @if (Route::has('register'))
+                                {{-- @if (Route::has('register'))
                                     <a href="{{ route('register') }}" class="ml-2 inline-flex items-center justify-center px-4 py-2 text-sm font-semibold text-white bg-blue-600 hover:bg-blue-700 rounded-md shadow-sm transition">
                                         Daftar
                                     </a>
-                                @endif
+                                @endif --}}
                             @endauth
                         @endif
                     </div>
@@ -49,7 +49,7 @@
                             Ubah cara Anda mengelola korespondensi. Lacak, arsipkan, dan distribusikan surat masuk & keluar dengan mudah dalam satu platform digital yang aman.
                         </p>
                         <div class="mt-10 flex flex-col sm:flex-row items-center justify-center md:justify-start gap-4">
-                            <a href="{{ route('register') }}" class="w-full sm:w-auto inline-block text-center text-lg font-semibold text-white bg-blue-600 hover:bg-blue-700 px-8 py-3 rounded-lg shadow-md transition">
+                            <a href="{{ route('login') }}" class="w-full sm:w-auto inline-block text-center text-lg font-semibold text-white bg-blue-600 hover:bg-blue-700 px-8 py-3 rounded-lg shadow-md transition">
                                 Mulai Sekarang
                             </a>
                             <a href="#fitur" class="w-full sm:w-auto inline-block text-center text-lg font-semibold text-gray-700 bg-gray-100 hover:bg-gray-200 px-8 py-3 rounded-lg transition">
