@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\Activitylog\LogOptions;
+use Illuminate\Support\Str;
 class SuratMasuk extends Model
 {
     use HasFactory, LogsActivity;
@@ -25,6 +26,7 @@ class SuratMasuk extends Model
      * @var array
      */
     protected $fillable = [
+        'uuid',
         'nomor_surat',
         'tanggal_surat',
         'tanggal_diterima',
@@ -38,6 +40,14 @@ class SuratMasuk extends Model
         'tanggal_surat' => 'date',
         'tanggal_diterima' => 'date',
     ];
+
+    protected static function booted(): void
+    {
+        static::creating(function ($suratMasuk) {
+            // Generate UUID saat data baru akan dibuat
+            $suratMasuk->uuid = Str::uuid()->toString();
+        });
+    }
 
     /**
      * Mendefinisikan relasi ke model User.
@@ -53,7 +63,7 @@ class SuratMasuk extends Model
         return $this->hasMany(Disposisi::class);
     }
 
-     public function getActivitylogOptions(): LogOptions
+    public function getActivitylogOptions(): LogOptions
     {
         return LogOptions::defaults()
             ->logOnly(['nomor_surat', 'perihal', 'pengirim']) // Catat hanya perubahan pada kolom ini

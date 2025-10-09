@@ -52,7 +52,7 @@ class KelolaSuratMasuk extends Component
             'pengirim' => 'required|string|max:255',
             'perihal' => 'required|string',
             'sifat_surat' => 'required|in:Biasa,Penting,Segera,Rahasia',
-            'fileScan' => 'required|file|mimes:pdf|max:2048',
+            'fileScan' => 'required|file|mimes:pdf,jpg,jpeg,png,webp|max:2048',
         ];
     }
 

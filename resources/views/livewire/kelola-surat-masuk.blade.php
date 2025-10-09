@@ -5,14 +5,22 @@
             <h2 class="text-2xl font-semibold text-gray-800 mb-4 md:mb-0">
                 Manajemen Surat Masuk
             </h2>
-            @can('kelola surat')
-            <button wire:click="create" class="inline-flex items-center px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-md hover:bg-blue-700">
-                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
-                </svg>
-                Tambah Surat
-            </button>
-            @endcan
+            <div class="flex space-x-2">
+                @can('kelola surat')
+                <button wire:click="create" class="inline-flex items-center px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-md hover:bg-blue-700">
+                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                    </svg>
+                    Tambah Surat
+                </button>
+                @endcan
+                {{-- <button wire:click="exportExcel" class="inline-flex items-center px-4 py-2 bg-green-600 text-white text-sm font-medium rounded-md hover:bg-green-700">
+                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
+                    </svg>
+                    Export Excel
+                </button> --}}
+            </div>
         </div>
 
         <div class="mb-4">
@@ -126,7 +134,7 @@
                             </div>
 
                             <div class="sm:col-span-2">
-                                <label for="file_scan" class="block mb-2 text-sm font-medium text-gray-700">Upload Scan Surat (PDF, max 2MB) <span class="text-red-500">*</span></label>
+                                <label for="file_scan" class="block mb-2 text-sm font-medium text-gray-700">Upload Scan Surat (PDF, JPG, PNG (MAX. 2MB)) <span class="text-red-500">*</span></label>
                                 <div x-data="{ isDragging: false }" x-on:dragover.prevent="isDragging = true" x-on:dragleave.prevent="isDragging = false" x-on:drop.prevent="isDragging = false; $wire.fileScan = $event.dataTransfer.files[0]">
                                     <label for="file_scan_modal" :class="{'border-blue-500 bg-blue-50': isDragging}" class="flex flex-col items-center justify-center w-full h-32 border-2 border-dashed rounded-lg cursor-pointer hover:bg-gray-100">
                                         <div class="flex flex-col items-center justify-center pt-5 pb-6">
@@ -134,7 +142,7 @@
                                                 <path stroke="currentColor" d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L7 9m3-3 3 3" /></svg>
                                             <p class="mb-2 text-sm text-gray-500"><span class="font-semibold">Klik atau seret file</span></p>
                                         </div>
-                                        <input id="file_scan_modal" type="file" class="hidden" wire:model="fileScan" accept=".pdf" />
+                                        <input id="file_scan_modal" type="file" class="hidden" wire:model="fileScan" accept=".pdf,.jpg,.jpeg,.png,.webp" />
                                     </label>
                                 </div>
                                 @error('fileScan') <span class="mt-1 text-xs text-red-600">{{ $message }}</span> @enderror
@@ -155,8 +163,8 @@
                                 Batal
                             </button>
                             <button type="submit" wire:loading.attr="disabled" wire:target="simpan" class="inline-flex items-center px-6 py-2 text-sm font-semibold text-white bg-blue-600 rounded-lg shadow-md hover:bg-blue-700">
-                               <span wire:loading.remove wire:target>Simpan Surat</span>
-                               <span wire:loading wire:target>Menyimpan...</span>
+                                <span wire:loading.remove wire:target>Simpan Surat</span>
+                                <span wire:loading wire:target>Menyimpan...</span>
                             </button>
                         </div>
                     </form>

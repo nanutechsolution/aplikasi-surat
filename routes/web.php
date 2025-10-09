@@ -24,12 +24,12 @@ Route::get('surat-masuk', KelolaSuratMasuk::class)
     ->name('surat-masuk');
 
 // Halaman Detail Surat: juga hanya untuk admin dan pimpinan
-Route::get('surat-masuk/{surat}', LihatSurat::class)
-    ->middleware(['auth', 'role:admin|pimpinan'])
+Route::get('surat-masuk/{surat:uuid}', LihatSurat::class)
+    ->middleware(['auth', 'can:view,surat'])
     ->name('surat.lihat');
 
 // Halaman Edit Surat: juga hanya untuk admin dan pimpinan
-Route::get('surat-masuk/{surat}/edit', EditSurat::class)
+Route::get('surat-masuk/{surat:uuid}/edit', EditSurat::class)
     ->middleware(['auth', 'role:admin|pimpinan'])
     ->name('surat.edit');
 

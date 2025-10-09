@@ -2,13 +2,15 @@
 
 namespace App\Livewire;
 
+use App\Exports\SuratKeluarExport;
+use App\Exports\SuratMasukExport;
 use App\Models\SuratKeluar;
 use App\Models\SuratMasuk;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
 use Livewire\Component;
 use Livewire\Attributes\Layout;
-
+use Maatwebsite\Excel\Facades\Excel;
 class LaporanSurat extends Component
 {
     #[Layout('layouts.app')]
@@ -55,6 +57,23 @@ class LaporanSurat extends Component
         return response()->streamDownload(function () use ($pdf) {
             echo $pdf->stream();
         }, $namaFile);
+    }
+
+    public function generateExcel()
+    {
+        $this->validate([
+            'jenis_surat' => 'required|in:masuk,keluar',
+            'tanggal_mulai' => 'required|date',
+            'tanggal_selesai' => 'required|date|after_or_equal:tanggal_mulai',
+        ]);
+
+        $namaFile = 'Laporan Surat ' . ucfirst($this->jenis_surat) . ' ' . $this->tanggal_mulai . ' - ' . $this->tanggal_selesai . '.xlsx';
+
+        if ($this->jenis_surat === 'masuk') {
+            return Excel::download(new SuratMasukExport($this->tanggal_mulai, $this->tanggal_selesai), $namaFile);
+        } else {
+            return Excel::download(new SuratKeluarExport($this->tanggal_mulai, $this->tanggal_selesai), $namaFile);
+        }
     }
 
     public function render()
