@@ -2,43 +2,66 @@
 
 namespace Database\Seeders;
 
-
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
 class DatabaseSeeder extends Seeder
 {
-    /**
-     * Seed the application's database.
-     */
     public function run(): void
     {
-
+        // Kosongkan notifikasi dulu (opsional)
         DB::table('notifications')->truncate();
 
+        // Jalankan seeder Role dan Kategori Disposisi
         $this->call([
-            RolePermissionSeeder::class
+            RolePermissionSeeder::class,
+            KategoriDisposisiSeeder::class,
         ]);
 
-        // Buat user Admin dan berikan peran 'admin'
+        // ===========================
+        // 📌 USER ADMIN
+        // ===========================
         $admin = User::factory()->create([
-            'name' => 'Admin User',
+            'name' => 'Admin Sistem',
             'email' => 'admin@example.com',
         ]);
         $admin->assignRole('admin');
 
-        // Buat user Pimpinan dan berikan peran 'pimpinan'
-        $pimpinan = User::factory()->create([
-            'name' => 'Pimpinan User',
-            'email' => 'pimpinan@example.com',
+        // ===========================
+        // 📌 USER DIREKTUR
+        // ===========================
+        $direktur = User::factory()->create([
+            'name' => 'Direktur Utama',
+            'email' => 'direktur@example.com',
         ]);
-        $pimpinan->assignRole('pimpinan');
+        $direktur->assignRole('direktur');
 
-        // Buat 3 user Staf dan berikan peran 'staf'
-        $stafUsers = User::factory()->count(3)->create();
-        foreach ($stafUsers as $staf) {
-            $staf->assignRole('staf');
-        }
+        // ===========================
+        // 📌 USER KA
+        // ===========================
+        $ka = User::factory()->create([
+            'name' => 'Kepala Akademik',
+            'email' => 'ka@example.com',
+        ]);
+        $ka->assignRole('ka');
+
+        // ===========================
+        // 📌 USER WAKA
+        // ===========================
+        $waka = User::factory()->create([
+            'name' => 'Wakil Kepala',
+            'email' => 'waka@example.com',
+        ]);
+        $waka->assignRole('waka');
+
+        // // ===========================
+        // // 📌 USER STAF
+        // // ===========================
+        // $stafUsers = User::factory()->count(3)->create();
+        // foreach ($stafUsers as $i => $staf) {
+        //     $staf->update(['name' => "Staf Bagian " . ($i + 1)]);
+        //     $staf->assignRole('staf');
+        // }
     }
 }

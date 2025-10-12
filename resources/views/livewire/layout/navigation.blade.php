@@ -24,46 +24,66 @@ new class extends Component
                 <div class="text-2xl font-bold text-blue-600 shrink-0 flex items-center">
                     <a href="/">E-Surat</a>
                 </div>
-                {{-- <div class="shrink-0 flex items-center">
-                    <a href="{{ route('dashboard') }}" wire:navigate>
-                        <x-application-logo class="block h-9 w-auto fill-current text-gray-800" />
-                    </a>
-                </div> --}}
-
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')" wire:navigate>
                         {{ __('Dashboard') }}
                     </x-nav-link>
-                    @hasanyrole('admin|pimpinan')
-                    <x-nav-link :href="route('surat-masuk')" :active="request()->routeIs('surat-masuk')">
+                    @hasanyrole('admin|direktur')
+                    <x-nav-link :href="route('surat-masuk')" :active="request()->routeIs('surat-masuk')" wire:navigate>
                         {{ __('Surat Masuk') }}
                     </x-nav-link>
                     @endhasanyrole
                     @can('kelola surat keluar')
-                    <x-nav-link :href="route('surat-keluar')" :active="request()->routeIs('surat-keluar')">
+                    <x-nav-link :href="route('surat-keluar')" :active="request()->routeIs('surat-keluar')" wire:navigate>
                         {{ __('Surat Keluar') }}
                     </x-nav-link>
                     @endcan
-                    <x-nav-link :href="route('disposisi.masuk')" :active="request()->routeIs('disposisi.masuk')">
+                    @hasrole('admin')
+                    <x-nav-link :href="route('disposisi.riwayat')" :active="request()->routeIs('disposisi.riwayat')" wire:navigate>
+                        {{ __('Riwayat Disposisi') }}
+                    </x-nav-link>
+                    @endrole
+                    <x-nav-link :href="route('disposisi.masuk')" :active="request()->routeIs('disposisi.masuk')" wire:navigate>
                         {{ __('Disposisi Masuk') }}
                     </x-nav-link>
-                    @hasanyrole('admin|pimpinan')
-                    <x-nav-link :href="route('laporan')" :active="request()->routeIs('laporan')">
+                    @hasanyrole('admin|direktur')
+                    <x-nav-link :href="route('laporan')" :active="request()->routeIs('laporan')" wire:navigate>
                         {{ __('Laporan') }}
                     </x-nav-link>
                     @endhasanyrole
+                    {{-- Dropdown Admin (Kelola Pengguna & Log Aktivitas) --}}
                     @role('admin')
-                    <x-nav-link :href="route('pengguna')" :active="request()->routeIs('pengguna')">
-                        {{ __('Kelola Pengguna') }}
-                    </x-nav-link>
-                    @endrole
-                    @role('admin')
-                    <x-nav-link :href="route('log.aktivitas')" :active="request()->routeIs('log.aktivitas')">
-                        {{ __('Log Aktivitas') }}
-                    </x-nav-link>
+                    <div class="hidden sm:flex sm:items-center sm:ms-6">
+                        <x-dropdown align="left" width="48">
+                            <x-slot name="trigger">
+                                <button class="inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium leading-5
+    transition duration-150 ease-in-out h-full
+    {{ request()->routeIs('pengguna') || request()->routeIs('log.aktivitas')
+        ? 'border-indigo-500 text-gray-900'
+        : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300' }}">
+                                    {{ __('Admin') }}
+                                    <svg class="ms-1 h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                                    </svg>
+                                </button>
+                            </x-slot>
+
+                            <x-slot name="content">
+                                <x-dropdown-link :href="route('pengguna')" wire:navigate>
+                                    {{ __('Kelola Pengguna') }}
+                                </x-dropdown-link>
+
+                                <x-dropdown-link :href="route('log.aktivitas')" wire:navigate>
+                                    {{ __('Log Aktivitas') }}
+                                </x-dropdown-link>
+                            </x-slot>
+                        </x-dropdown>
+                    </div>
                     @endrole
                 </div>
+
             </div>
 
             <!-- Settings Dropdown -->
@@ -116,7 +136,7 @@ new class extends Component
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')" wire:navigate>
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
-            @hasanyrole('admin|pimpinan')
+            @hasanyrole('admin|direktur')
             <x-responsive-nav-link :href="route('surat-masuk')" :active="request()->routeIs('surat-masuk')" wire:navigate>
                 {{ __('Surat Masuk') }}
             </x-responsive-nav-link>
@@ -129,7 +149,7 @@ new class extends Component
             <x-responsive-nav-link :href="route('disposisi.masuk')" :active="request()->routeIs('disposisi.masuk')" wire:navigate>
                 {{ __('Disposisi Masuk') }}
             </x-responsive-nav-link>
-            @hasanyrole('admin|pimpinan')
+            @hasanyrole('admin|direktur')
             <x-responsive-nav-link :href="route('laporan')" :active="request()->routeIs('laporan')">
                 {{ __('Laporan') }}
             </x-responsive-nav-link>

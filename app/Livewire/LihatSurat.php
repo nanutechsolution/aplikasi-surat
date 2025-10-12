@@ -22,6 +22,9 @@ class LihatSurat extends Component
         $this->surat = $surat;
         $this->determineFileType();
         $this->generateFlowchart();
+
+        // 🔥 Tambahkan event ini supaya mermaid render saat komponen pertama kali ditampilkan
+        $this->dispatch('rerender-mermaid');
     }
     private function determineFileType()
     {
@@ -60,6 +63,9 @@ class LihatSurat extends Component
 
         $this->dispositionFlowchart = $flow;
     }
+
+
+
     public function delete()
     {
         // 1. Hapus file fisik dari storage

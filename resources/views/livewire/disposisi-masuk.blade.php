@@ -21,6 +21,12 @@
                         <p class="text-lg font-bold text-gray-800 mt-1">
                             Surat: {{ $disposisi->suratMasuk->perihal }}
                         </p>
+                        <p class="text-sm text-gray-600 mt-1">
+                            Disposisi:
+                            <span class="inline-block px-2 py-0.5 text-xs rounded-full bg-indigo-100 text-indigo-800">
+                                {{ $disposisi->kategori?->nama ?? 'Tanpa Kategori' }}
+                            </span>
+                        </p>
                     </div>
                     <span class="text-xs font-semibold px-2.5 py-1 rounded-full
                     {{ $disposisi->status === 'Selesai' ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800' }}">

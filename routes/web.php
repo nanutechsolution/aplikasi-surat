@@ -1,6 +1,7 @@
 <?php
 
 use App\Livewire\DashboardStatistik;
+use App\Livewire\Disposisi\RiwayatDisposisi;
 use App\Livewire\DisposisiMasuk;
 use App\Livewire\EditSurat;
 use App\Livewire\KelolaPengguna;
@@ -18,19 +19,19 @@ Route::get('dashboard', DashboardStatistik::class)
     ->middleware(['auth', 'verified'])
     ->name('dashboard');
 
-// Halaman Surat Masuk: hanya bisa diakses oleh admin dan pimpinan
+// Halaman Surat Masuk: hanya bisa diakses oleh admin dan direktur
 Route::get('surat-masuk', KelolaSuratMasuk::class)
-    ->middleware(['auth', 'role:admin|pimpinan'])
+    ->middleware(['auth', 'role:admin|direktur'])
     ->name('surat-masuk');
 
-// Halaman Detail Surat: juga hanya untuk admin dan pimpinan
+// Halaman Detail Surat: juga hanya untuk admin dan direktur
 Route::get('surat-masuk/{surat:uuid}', LihatSurat::class)
     ->middleware(['auth', 'can:view,surat'])
     ->name('surat.lihat');
 
-// Halaman Edit Surat: juga hanya untuk admin dan pimpinan
+// Halaman Edit Surat: juga hanya untuk admin dan direktur
 Route::get('surat-masuk/{surat:uuid}/edit', EditSurat::class)
-    ->middleware(['auth', 'role:admin|pimpinan'])
+    ->middleware(['auth', 'role:admin|direktur'])
     ->name('surat.edit');
 
 // Halaman Disposisi Masuk: bisa diakses semua yang sudah login
@@ -50,10 +51,14 @@ Route::get('surat-keluar', KelolaSuratKeluar::class)
     ->name('surat-keluar');
 
 Route::get('laporan', LaporanSurat::class)
-    ->middleware(['auth', 'role:admin|pimpinan'])
+    ->middleware(['auth', 'role:admin|direktur'])
     ->name('laporan');
 
 Route::get('log-aktivitas', LogAktivitas::class)
     ->middleware(['auth', 'role:admin'])
     ->name('log.aktivitas');
+
+Route::get('disposisi/riwayat', RiwayatDisposisi::class)
+    ->middleware(['auth', 'role:admin'])
+    ->name(name: 'disposisi.riwayat');
 require __DIR__ . '/auth.php';

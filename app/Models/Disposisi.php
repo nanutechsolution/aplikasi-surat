@@ -17,8 +17,14 @@ class Disposisi extends Model
         'dari_user_id',
         'kepada_user_id',
         'isi_disposisi',
+        'kategori_disposisi_id',
         'status',
     ];
+
+    public function kategori()
+    {
+        return $this->belongsTo(\App\Models\KategoriDisposisi::class, 'kategori_disposisi_id');
+    }
 
     // Relasi: Satu disposisi dimiliki oleh satu surat
     public function suratMasuk(): BelongsTo

@@ -16,9 +16,26 @@
                     </select>
                     @error('kepada_user_id') <span class="text-xs text-red-600">{{ $message }}</span> @enderror
                 </div>
+                <div>
+                    <label for="kategori_disposisi_id" class="block text-sm font-medium text-gray-700">
+                        Disposisi
+                    </label>
+                    <select id="kategori_disposisi_id" wire:model="kategori_disposisi_id" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md">
+                        @if($kategori->isEmpty())
+                        <option disabled>Tidak ada kategori</option>
+                        @else
+                        @foreach ($kategori as $kat)
+                        <option value="{{ $kat->id }}">{{ $kat->nama }}</option>
+                        @endforeach
+                        @endif
+                    </select>
+                    @error('kategori_disposisi_id')
+                    <span class="text-xs text-red-600">{{ $message }}</span>
+                    @enderror
+                </div>
 
                 <div>
-                    <label for="isi_disposisi" class="block text-sm font-medium text-gray-700">Isi Instruksi</label>
+                    <label for="isi_disposisi" class="block text-sm font-medium text-gray-700">Keterangan</label>
                     <textarea id="isi_disposisi" wire:model="isi_disposisi" rows="4" class="mt-1 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border border-gray-300 rounded-md" placeholder="Tulis instruksi Anda di sini..."></textarea>
                     @error('isi_disposisi') <span class="text-xs text-red-600">{{ $message }}</span> @enderror
                 </div>

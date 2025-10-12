@@ -3,6 +3,7 @@
 namespace App\Livewire;
 
 use App\Models\Disposisi;
+use App\Models\KategoriDisposisi;
 use App\Models\SuratMasuk;
 use App\Models\User;
 use Illuminate\Support\Collection;
@@ -16,17 +17,24 @@ class FormDisposisi extends Component
     // Properti yang terhubung ke form
     public $kepada_user_id;
     public $isi_disposisi;
-
+    public $kategori_disposisi_id;
+    public $kategori;
     public function mount(SuratMasuk $surat)
     {
         $this->surat = $surat;
         // Ambil semua user kecuali diri sendiri, untuk pilihan tujuan disposisi
         $this->users = User::where('id', '!=', auth()->id())->get();
+        $this->kategori = KategoriDisposisi::all();
 
         // Set user pertama sebagai default jika ada
         if ($this->users->isNotEmpty()) {
             $this->kepada_user_id = $this->users->first()->id;
         }
+
+        if ($this->kategori->isNotEmpty()) {
+            $this->kategori_disposisi_id = $this->kategori->first()->id;
+        }
+
     }
 
     protected function rules()
@@ -34,6 +42,7 @@ class FormDisposisi extends Component
         return [
             'kepada_user_id' => 'required|exists:users,id',
             'isi_disposisi' => 'required|string|min:5',
+            'kategori_disposisi_id' => 'nullable|exists:kategori_disposisi,id',
         ];
     }
 
@@ -46,6 +55,8 @@ class FormDisposisi extends Component
             'dari_user_id' => auth()->id(),
             'kepada_user_id' => $this->kepada_user_id,
             'isi_disposisi' => $this->isi_disposisi,
+            'kategori_disposisi_id' => $this->kategori_disposisi_id,
+
         ]);
         $penerima = User::find($this->kepada_user_id);
         if ($penerima) {
