@@ -198,7 +198,7 @@
                     </button>
                     <button type="submit" wire:loading.attr="disabled" wire:target="simpan" class="inline-flex items-center px-6 py-2 text-sm font-semibold text-white bg-blue-600 rounded-lg shadow-md hover:bg-blue-700">
                         <span wire:loading.remove wire:target>Simpan Surat</span>
-                        <span wire:loading wire:target>Menyimpan...</span>
+                        {{-- <span wire:loading wire:target>Menyimpan...</span> --}}
                     </button>
                 </div>
                 </form>
