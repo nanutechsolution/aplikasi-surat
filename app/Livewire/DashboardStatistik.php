@@ -14,39 +14,32 @@ class DashboardStatistik extends Component
     public $totalSurat;
     public $suratBulanIni;
     public $suratHariIni;
-    public $chartData;
-
+    public $chartData = [];
     public function mount()
     {
         $this->totalSurat = SuratMasuk::count();
         $this->suratBulanIni = SuratMasuk::whereMonth('tanggal_diterima', now()->month)->count();
         $this->suratHariIni = SuratMasuk::whereDate('tanggal_diterima', now()->today())->count();
-        $this->loadChartData();
+        $this->chartData = $this->getChartData();
     }
 
-    public function loadChartData()
+    public function getChartData()
     {
         $labels = [];
         $data = [];
-        // Ambil data untuk 7 hari terakhir, dari 6 hari lalu sampai hari ini
+
         for ($i = 6; $i >= 0; $i--) {
             $date = Carbon::now()->subDays($i);
-            $labels[] = $date->format('d M'); // Format label (misal: 09 Oct)
-
-            $count = SuratMasuk::whereDate('tanggal_diterima', $date)->count();
-            $data[] = $count;
+            $labels[] = $date->format('d M');
+            $data[] = SuratMasuk::whereDate('tanggal_diterima', $date)->count();
         }
 
-        $this->chartData = [
+        return [
             'labels' => $labels,
-            'data' => $data,
+            'data' => $data
         ];
-
-        // Kirim data ke browser untuk di-render oleh Alpine.js
-        // $this->dispatch('updateChart', data: $this->chartData);
-        $this->dispatch('update-chart', ['data' => $this->chartData]);
-
     }
+
 
     public function render()
     {

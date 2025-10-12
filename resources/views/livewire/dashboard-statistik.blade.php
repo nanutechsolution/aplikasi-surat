@@ -46,27 +46,27 @@
         <!-- Chart Section -->
         <div class="mt-10 bg-white p-6 rounded-xl shadow-lg">
             <h3 class="text-xl font-semibold text-gray-800 mb-4">Tren Surat Masuk (7 Hari Terakhir)</h3>
-            <div x-data="chart()" x-init="initChart()" @update-chart.window="updateChartData($event.detail.data)">
+            <div x-data="chart({{ json_encode($chartData) }})">
                 <canvas id="suratChart" height="120"></canvas>
             </div>
+
         </div>
     </div>
 </div>
-
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
-    function chart() {
+    function chart(chartData) {
         return {
-            chartInstance: null
-            , initChart() {
+            chartInstance: null,
+
+            init() {
                 const ctx = document.getElementById('suratChart').getContext('2d');
                 this.chartInstance = new Chart(ctx, {
                     type: 'line'
                     , data: {
-                        labels: []
+                        labels: chartData.labels
                         , datasets: [{
                             label: 'Jumlah Surat Masuk'
-                            , data: []
+                            , data: chartData.data
                             , backgroundColor: 'rgba(59, 130, 246, 0.2)'
                             , borderColor: 'rgba(59, 130, 246, 1)'
                             , borderWidth: 2
@@ -83,14 +83,6 @@
                             legend: {
                                 display: true
                             }
-                            , tooltip: {
-                                mode: 'index'
-                                , intersect: false
-                            }
-                        }
-                        , interaction: {
-                            mode: 'nearest'
-                            , intersect: false
                         }
                         , scales: {
                             y: {
@@ -102,14 +94,11 @@
                         }
                     }
                 });
-            }
-            , updateChartData(data) {
-                console.log("Data diterima:", data); // debug
-                if (this.chartInstance) {
-                    this.chartInstance.data.labels = data.labels;
-                    this.chartInstance.data.datasets[0].data = data.data;
-                    this.chartInstance.update();
-                }
+            },
+
+            // panggil init setelah Alpine mount
+            $nextTick() {
+                this.init();
             }
         }
     }
