@@ -11,8 +11,10 @@ use App\Livewire\LaporanSurat;
 use App\Livewire\LihatSurat;
 use App\Livewire\LogAktivitas;
 use Illuminate\Support\Facades\Route;
+use Livewire\Volt\Volt;
+
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('login'); // redirect ke route login
 });
 // Dashboard bisa diakses semua yang sudah login
 Route::get('dashboard', DashboardStatistik::class)
