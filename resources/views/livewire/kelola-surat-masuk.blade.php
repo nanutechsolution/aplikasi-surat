@@ -175,7 +175,7 @@
                             <div>
                                 <label class="block text-sm font-medium text-gray-700">Disposisi</label>
                                 <select id="kategoriSelect" class="tom-select mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500" wire:model="kategori_disposisi_id">
-                                    <option value="">-- Pilih Kategori --</option>
+                                    <option value="">-- Pilih Disposisi --</option>
                                     @foreach($daftarKategori as $kategori)
                                     <option value="{{ $kategori->id }}">{{ $kategori->nama }}</option>
                                     @endforeach
