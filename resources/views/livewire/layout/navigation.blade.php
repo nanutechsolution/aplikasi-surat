@@ -149,6 +149,11 @@ new class extends Component
             <x-responsive-nav-link :href="route('disposisi.masuk')" :active="request()->routeIs('disposisi.masuk')" wire:navigate>
                 {{ __('Disposisi Masuk') }}
             </x-responsive-nav-link>
+            @role('admin')
+            <x-responsive-nav-link :href="route('disposisi.riwayat')" :active="request()->routeIs('disposisi.riwayat')" wire:navigate>
+                {{ __('Riwayat Disposisi') }}
+            </x-responsive-nav-link>
+            @endrole
             @hasanyrole('admin|direktur')
             <x-responsive-nav-link :href="route('laporan')" :active="request()->routeIs('laporan')">
                 {{ __('Laporan') }}
