@@ -43,7 +43,9 @@ class DashboardStatistik extends Component
         ];
 
         // Kirim data ke browser untuk di-render oleh Alpine.js
-        $this->dispatch('updateChart', data: $this->chartData);
+        // $this->dispatch('updateChart', data: $this->chartData);
+        $this->dispatch('update-chart', ['data' => $this->chartData]);
+
     }
 
     public function render()
