@@ -45,9 +45,9 @@ new class extends Component
                         {{ __('Riwayat Disposisi') }}
                     </x-nav-link>
                     @endrole
-                    <x-nav-link :href="route('disposisi.masuk')" :active="request()->routeIs('disposisi.masuk')" wire:navigate>
+                    {{-- <x-nav-link :href="route('disposisi.masuk')" :active="request()->routeIs('disposisi.masuk')" wire:navigate>
                         {{ __('Disposisi Masuk') }}
-                    </x-nav-link>
+                    </x-nav-link> --}}
                     @hasanyrole('admin|direktur')
                     <x-nav-link :href="route('laporan')" :active="request()->routeIs('laporan')" wire:navigate>
                         {{ __('Laporan') }}
