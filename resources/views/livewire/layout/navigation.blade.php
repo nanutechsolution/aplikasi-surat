@@ -152,9 +152,9 @@ new class extends Component
                 {{ __('Surat Keluar') }}
             </x-responsive-nav-link>
             @endcan
-            <x-responsive-nav-link :href="route('disposisi.masuk')" :active="request()->routeIs('disposisi.masuk')" wire:navigate>
+            {{-- <x-responsive-nav-link :href="route('disposisi.masuk')" :active="request()->routeIs('disposisi.masuk')" wire:navigate>
                 {{ __('Disposisi Masuk') }}
-            </x-responsive-nav-link>
+            </x-responsive-nav-link> --}}
             @role('admin')
             <x-responsive-nav-link :href="route('disposisi.riwayat')" :active="request()->routeIs('disposisi.riwayat')" wire:navigate>
                 {{ __('Riwayat Disposisi') }}
