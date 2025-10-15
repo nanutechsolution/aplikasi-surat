@@ -22,7 +22,7 @@ class SuratMasukPolicy
     public function view(User $user, SuratMasuk $suratMasuk): bool
     {
         // 1. Izinkan jika user adalah admin atau pimpinan
-        if ($user->hasAnyRole(['admin', 'pimpinan'])) {
+        if ($user->hasAnyRole(['admin', 'pimpinan', 'direktur'])) {
             return true;
         }
 

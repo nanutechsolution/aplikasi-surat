@@ -51,7 +51,7 @@ Route::view('profile', 'profile')
     ->name('profile');
 
 Route::get('surat-keluar', KelolaSuratKeluar::class)
-    ->middleware(['auth', 'permission:kelola surat keluar'])
+    ->middleware(['auth', 'permission:kelola surat'])
     ->name('surat-keluar');
 
 Route::get('laporan', LaporanSurat::class)
