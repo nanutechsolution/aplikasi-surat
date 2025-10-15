@@ -32,7 +32,7 @@ class PermissionSeeder extends Seeder
 
         // 3. BERIKAN PERMISSIONS KE SETIAP ROLE
         // Direktur bisa melakukan segalanya
-        $roleAdmin->givePermissionTo(Permission::all());
+
         $roleDirektur->givePermissionTo(Permission::all());
 
         // Manajer bisa mengelola surat dan membuat disposisi

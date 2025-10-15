@@ -35,7 +35,7 @@ new class extends Component
                         {{ __('Surat Masuk') }}
                     </x-nav-link>
                     @endhasanyrole
-                    @can('kelola surat keluar')
+                    @can('kelola surat')
                     <x-nav-link :href="route('surat-keluar')" :active="request()->routeIs('surat-keluar')" wire:navigate>
                         {{ __('Surat Keluar') }}
                     </x-nav-link>
@@ -147,7 +147,7 @@ new class extends Component
                 {{ __('Surat Masuk') }}
             </x-responsive-nav-link>
             @endhasanyrole
-            @can('kelola surat keluar')
+            @can(abilities: 'kelola surat')
             <x-responsive-nav-link :href="route('surat-keluar')" :active="request()->routeIs('surat-keluar')">
                 {{ __('Surat Keluar') }}
             </x-responsive-nav-link>
