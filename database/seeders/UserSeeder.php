@@ -22,7 +22,7 @@ class UserSeeder extends Seeder
         $admin = User::create([
             'name' => 'Admin Sistem',
             'email' => 'admin@example.com',
-            'password' => Hash::make('password'),
+            'password' => Hash::make('Password123'),
             'jabatan_id' => Jabatan::where('nama', 'Admin Sistem')->firstOrFail()->id,
             'manager_id' => null, // Admin tidak punya atasan
         ]);
