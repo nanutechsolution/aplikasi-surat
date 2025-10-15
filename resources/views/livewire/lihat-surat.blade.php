@@ -265,10 +265,10 @@
 
                         @php $row = $daftarInstruksiForm[$i]; @endphp
                         <td class="border-r border-black p-1 w-[20%]">
-                            <span class="inline-block border border-black w-3 h-3 mr-1">@if(in_array($row[0], $instruksiCetak)) ✓ @endif</span>{{ $row[0] }}
+                            <span class="checkbox">@if(in_array($row[0], $instruksiCetak)) ✓ @endif</span>{{ $row[0] }}
                         </td>
                         <td class="p-1 w-[20%]">
-                            <span class="inline-block border border-black w-3 h-3 mr-1">@if(in_array($row[1], $instruksiCetak)) ✓ @endif</span>{{ $row[1] }}
+                            <span class="checkbox">@if(in_array($row[1], $instruksiCetak)) ✓ @endif</span>{{ $row[1] }}
                         </td>
                         </tr>
                         @endfor
@@ -295,6 +295,17 @@
             #lembar-disposisi,
             #lembar-disposisi * {
                 visibility: visible;
+            }
+
+            .checkbox {
+                display: inline-block;
+                border: 1px solid #000;
+                width: 10px;
+                height: 10px;
+                text-align: center;
+                line-height: 10px;
+                margin-right: 4px;
+                font-weight: bold;
             }
 
             #lembar-disposisi {
