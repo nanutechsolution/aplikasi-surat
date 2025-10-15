@@ -107,7 +107,7 @@
                         <button type="button" wire:click="closeModal" class="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-200 rounded-md hover:bg-gray-300">Batal</button>
                         <button type="submit" class="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700">
                             <span wire:loading.remove wire:target="save, fileScan">{{ $isEditMode ? 'Update' : 'Simpan' }}</span>
-                            <span wire:loading wire:target="save, fileScan">Menyimpan...</span>
+                            {{-- <span wire:loading wire:target="save, fileScan">Menyimpan...</span> --}}
                         </button>
                     </div>
                 </form>
