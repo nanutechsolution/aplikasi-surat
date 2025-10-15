@@ -4,7 +4,9 @@ use App\Livewire\DashboardStatistik;
 use App\Livewire\Disposisi\RiwayatDisposisi;
 use App\Livewire\DisposisiMasuk;
 use App\Livewire\EditSurat;
+use App\Livewire\KelolaJabatan;
 use App\Livewire\KelolaPengguna;
+use App\Livewire\KelolaRoles;
 use App\Livewire\KelolaSuratKeluar;
 use App\Livewire\KelolaSuratMasuk;
 use App\Livewire\LaporanSurat;
@@ -63,4 +65,12 @@ Route::get('log-aktivitas', LogAktivitas::class)
 Route::get('disposisi/riwayat', RiwayatDisposisi::class)
     ->middleware(['auth', 'role:admin'])
     ->name(name: 'disposisi.riwayat');
+
+Route::get('jabatan', KelolaJabatan::class)
+    ->middleware(['auth', 'role:admin'])
+    ->name('jabatan.index');
+
+Route::get('roles', KelolaRoles::class)
+    ->middleware(['auth', 'role:admin'])
+    ->name('roles.index');
 require __DIR__ . '/auth.php';

@@ -78,6 +78,12 @@ new class extends Component
                                 <x-dropdown-link :href="route('log.aktivitas')" wire:navigate>
                                     {{ __('Log Aktivitas') }}
                                 </x-dropdown-link>
+                                <x-dropdown-link :href="route('jabatan.index')" :active="request()->routeIs('jabatan.index')">
+                                    {{ __('Jabatan') }}
+                                </x-dropdown-link>
+                                <x-dropdown-link :href="route('roles.index')" :active="request()->routeIs('roles.index')">
+                                    {{ __('Roles') }}
+                                </x-dropdown-link>
                             </x-slot>
                         </x-dropdown>
                     </div>

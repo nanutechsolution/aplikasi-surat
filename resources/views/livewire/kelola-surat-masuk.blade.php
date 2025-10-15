@@ -14,12 +14,6 @@
                     Tambah Surat
                 </button>
                 @endcan
-                {{-- <button wire:click="exportExcel" class="inline-flex items-center px-4 py-2 bg-green-600 text-white text-sm font-medium rounded-md hover:bg-green-700">
-                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
-                    </svg>
-                    Export Excel
-                </button> --}}
             </div>
         </div>
 
@@ -79,10 +73,9 @@
                 </table>
             </div>
         </div>
-
         <div class="mt-6">{{ $suratMasuk->links() }}</div>
 
-        @if($showModal)
+        @if ($showModal)
         <div class="fixed inset-0 z-50 overflow-y-auto flex items-start justify-center p-4 pt-12 bg-black bg-opacity-50">
             <div class="relative w-full max-w-3xl">
                 <div class="p-6 bg-white border border-gray-200 rounded-lg shadow-xl">
@@ -95,145 +88,148 @@
                         <div class="grid gap-6 mb-6 sm:grid-cols-2">
                             <div>
                                 <label for="nomor_surat" class="block mb-2 text-sm font-medium text-gray-700">Nomor Surat <span class="text-red-500">*</span></label>
-                                <input type="text" id="nomor_surat" wire:model="nomor_surat" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" required>
+                                <input type="text" id="nomor_surat" wire:model="nomor_surat" class="bg-gray-50 border ... block w-full p-2.5" required>
                                 @error('nomor_surat') <span class="mt-1 text-xs text-red-600">{{ $message }}</span> @enderror
                             </div>
                             <div>
                                 <label for="tanggal_surat" class="block mb-2 text-sm font-medium text-gray-700">Tanggal Surat <span class="text-red-500">*</span></label>
-                                <input type="date" id="tanggal_surat" wire:model="tanggal_surat" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" required>
+                                <input type="date" id="tanggal_surat" wire:model="tanggal_surat" class="bg-gray-50 border ... block w-full p-2.5" required>
                                 @error('tanggal_surat') <span class="mt-1 text-xs text-red-600">{{ $message }}</span> @enderror
                             </div>
-
                             <div>
                                 <label for="tanggal_diterima" class="block mb-2 text-sm font-medium text-gray-700">Tanggal Diterima <span class="text-red-500">*</span></label>
-                                <input type="date" id="tanggal_diterima" wire:model="tanggal_diterima" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" required>
+                                <input type="date" id="tanggal_diterima" wire:model="tanggal_diterima" class="bg-gray-50 border ... block w-full p-2.5" required>
                                 @error('tanggal_diterima') <span class="mt-1 text-xs text-red-600">{{ $message }}</span> @enderror
                             </div>
-
                             <div>
                                 <label for="pengirim" class="block mb-2 text-sm font-medium text-gray-700">Pengirim <span class="text-red-500">*</span></label>
-                                <input type="text" id="pengirim" readonly wire:model="pengirim" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" required>
+                                <input type="text" id="pengirim"  wire:model="pengirim" class="bg-gray-50 border ... block w-full p-2.5" required>
                                 @error('pengirim') <span class="mt-1 text-xs text-red-600">{{ $message }}</span> @enderror
                             </div>
 
                             <div class="sm:col-span-2">
                                 <label for="perihal" class="block mb-2 text-sm font-medium text-gray-700">Perihal <span class="text-red-500">*</span></label>
-                                <textarea id="perihal" rows="4" wire:model="perihal" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500" required></textarea>
+                                <textarea id="perihal" rows="3" wire:model="perihal" class="block p-2.5 w-full ... " required></textarea>
                                 @error('perihal') <span class="mt-1 text-xs text-red-600">{{ $message }}</span> @enderror
                             </div>
 
-                            {{-- <div>
-                                <label for="sifat_surat" class="block mb-2 text-sm font-medium text-gray-700">Sifat Surat <span class="text-red-500">*</span></label>
-                                <select id="sifat_surat" wire:model="sifat_surat" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
-                                    <option value="Biasa">Biasa</option>
-                                    <option value="Penting">Penting</option>
-                                    <option value="Segera">Segera</option>
-                                    <option value="Rahasia">Rahasia</option>
-                                </select>
-                                @error('sifat_surat') <span class="mt-1 text-xs text-red-600">{{ $message }}</span> @enderror
-                        </div> --}}
-
-                        <div class="sm:col-span-2">
-                            <label for="file_scan" class="block mb-2 text-sm font-medium text-gray-700">Upload Scan Surat (PDF, JPG, PNG (MAX. 2MB)) <span class="text-red-500">*</span></label>
-                            <div x-data="{ isDragging: false }" x-on:dragover.prevent="isDragging = true" x-on:dragleave.prevent="isDragging = false" x-on:drop.prevent="isDragging = false; $wire.fileScan = $event.dataTransfer.files[0]">
-                                <label for="file_scan_modal" :class="{'border-blue-500 bg-blue-50': isDragging}" class="flex flex-col items-center justify-center w-full h-32 border-2 border-dashed rounded-lg cursor-pointer hover:bg-gray-100">
-                                    <div class="flex flex-col items-center justify-center pt-5 pb-6">
-                                        <svg class="w-8 h-8 mb-4 text-gray-500" fill="none" viewBox="0 0 20 16">
-                                            <path stroke="currentColor" d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L7 9m3-3 3 3" /></svg>
-                                        <p class="mb-2 text-sm text-gray-500"><span class="font-semibold">Klik atau seret file</span></p>
-                                    </div>
-                                    <input id="file_scan_modal" type="file" class="hidden" wire:model="fileScan" accept=".pdf,.jpg,.jpeg,.png,.webp" />
-                                </label>
-                            </div>
-                            @error('fileScan') <span class="mt-1 text-xs text-red-600">{{ $message }}</span> @enderror
-                            @if ($fileScan)
-                            <div class="flex items-center justify-between p-2 mt-2 text-sm text-gray-700 bg-gray-100 rounded-lg">
-                                <span>{{ $fileScan->getClientOriginalName() }}</span>
-                                <button type="button" wire:click="$set('fileScan', null)" class="text-red-500 hover:text-red-700">&times;</button>
-                            </div>
-                            @endif
-                            <div x-show="isUploading" class="w-full bg-gray-200 rounded-full h-2.5 mt-2">
-                                <div class="bg-blue-600 h-2.5 rounded-full" :style="`width: ${progress}%`"></div>
-                            </div>
-                        </div>
-                        <div class="mt-4 flex items-center space-x-2">
-                            <input type="checkbox" wire:model.live="kirimDisposisi" id="kirimDisposisi" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500">
-                            <label for="kirimDisposisi" class="text-sm text-gray-700">Kirim disposisi langsung</label>
-                        </div>
-                        @if($kirimDisposisi)
-                        <div class="mt-4 space-y-4 border p-4 rounded-lg bg-gray-50">
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700">Tujuan Disposisi</label>
-                                <select wire:model="tujuan_disposisi" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500">
-                                    <option value="">-- Pilih Tujuan --</option>
-                                    @foreach($daftarTujuan as $user)
-                                    <option value="{{ $user->id }}">{{ $user->name }}</option>
-                                    @endforeach
-                                </select>
-                                @error('tujuan_disposisi') <span class="text-red-600 text-sm">{{ $message }}</span> @enderror
-                            </div>
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700">Disposisi</label>
-                                <select id="kategoriSelect" class="tom-select mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500" wire:model="kategori_disposisi_id">
-                                    <option value="">-- Pilih Disposisi --</option>
-                                    @foreach($daftarKategori as $kategori)
-                                    <option value="{{ $kategori->id }}">{{ $kategori->nama }}</option>
-                                    @endforeach
-                                </select>
-                                @error('kategori_disposisi_id')
-                                <span class="text-red-600 text-sm">{{ $message }}</span>
-                                @enderror
+                            <div class="sm:col-span-2 grid grid-cols-1 md:grid-cols-3 gap-6">
+                                <div>
+                                    <label for="sifat_surat" class="block mb-2 text-sm font-medium text-gray-700">Sifat Surat</label>
+                                    <select id="sifat_surat" wire:model="sifat_surat" class="bg-gray-50 border ... block w-full p-2.5">
+                                        <option value="Biasa">Biasa</option>
+                                        <option value="Penting">Penting</option>
+                                        <option value="Segera">Segera</option>
+                                        <option value="Rahasia">Rahasia</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label for="klasifikasi" class="block mb-2 text-sm font-medium text-gray-700">Klasifikasi</label>
+                                    <select id="klasifikasi" wire:model="klasifikasi" class="bg-gray-50 border ... block w-full p-2.5">
+                                        <option value="Biasa">Biasa</option>
+                                        <option value="Penting">Penting</option>
+                                        <option value="Rahasia">Rahasia</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label for="derajat" class="block mb-2 text-sm font-medium text-gray-700">Derajat</label>
+                                    <select id="derajat" wire:model="derajat" class="bg-gray-50 border ... block w-full p-2.5">
+                                        <option value="Biasa">Biasa</option>
+                                        <option value="Segera">Segera</option>
+                                        <option value="Sangat Segera">Sangat Segera</option>
+                                    </select>
+                                </div>
                             </div>
 
+                            <div class="sm:col-span-2">
+                                <label for="file_scan" class="block mb-2 text-sm font-medium text-gray-700">Upload Scan Surat (PDF, JPG, PNG (MAX. 2MB)) <span class="text-red-500">*</span></label>
+                                <div x-data="{ isDragging: false }" x-on:dragover.prevent="isDragging = true" x-on:dragleave.prevent="isDragging = false" x-on:drop.prevent="isDragging = false; $wire.set('fileScan', $event.dataTransfer.files[0])">
+                                    <label for="file_scan_modal" :class="{'border-blue-500 bg-blue-50': isDragging}" class="flex flex-col items-center justify-center w-full h-32 border-2 border-dashed rounded-lg cursor-pointer hover:bg-gray-100">
+                                        <div class="flex flex-col items-center justify-center pt-5 pb-6">
+                                            <svg class="w-8 h-8 mb-4 text-gray-500" fill="none" viewBox="0 0 20 16">
+                                                <path stroke="currentColor" d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L7 9m3-3 3 3" /></svg>
+                                            <p class="mb-2 text-sm text-gray-500"><span class="font-semibold">Klik atau seret file</span></p>
+                                        </div>
+                                        <input id="file_scan_modal" type="file" class="hidden" wire:model="fileScan" accept=".pdf,.jpg,.jpeg,.png,.webp" />
+                                    </label>
+                                </div>
+                                @error('fileScan') <span class="mt-1 text-xs text-red-600">{{ $message }}</span> @enderror
+                                @if ($fileScan && method_exists($fileScan, 'getClientOriginalName'))
+                                <div class="flex items-center justify-between p-2 mt-2 text-sm text-gray-700 bg-gray-100 rounded-lg">
+                                    <span>{{ $fileScan->getClientOriginalName() }}</span>
+                                    <button type="button" wire:click="$set('fileScan', null)" class="text-red-500 hover:text-red-700">&times;</button>
+                                </div>
+                                @endif
+                                <div x-show="isUploading" class="w-full bg-gray-200 rounded-full h-2.5 mt-2">
+                                    <div class="bg-blue-600 h-2.5 rounded-full" :style="`width: ${progress}%`"></div>
+                                </div>
+                            </div>
+
+                            <div class="sm:col-span-2 flex items-center space-x-2">
+                                <input type="checkbox" wire:model.live="kirimDisposisi" id="kirimDisposisi" class="rounded ...">
+                                <label for="kirimDisposisi" class="text-sm text-gray-700">Kirim disposisi langsung</label>
+                            </div>
+                        </div>
+
+                        @if ($kirimDisposisi)
+                        <div class="mt-4 space-y-6 border p-4 rounded-lg bg-gray-50">
+                            {{-- Tujuan Disposisi (CHECKBOX) --}}
                             <div>
-                                <label class="block text-sm font-medium text-gray-700">Instruksi (opsional)</label>
-                                <textarea wire:model="instruksi_disposisi" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500"></textarea>
+                                <label class="block text-sm font-medium text-gray-700">Pilih Tujuan dari Daftar</label>
+                                <div class="mt-2 grid grid-cols-2 md:grid-cols-3 gap-2">
+                                    @forelse($daftarTujuan as $user)
+                                    <label for="tujuan_{{ $user->id }}" class="flex items-center space-x-2 p-2 border rounded-md hover:bg-gray-100 cursor-pointer">
+                                        <input type="checkbox" id="tujuan_{{ $user->id }}" wire:model="tujuan_disposisi" value="{{ $user->id }}" class="rounded ...">
+                                        <span class="text-sm text-gray-800">{{ $user->name }}</span>
+                                    </label>
+                                    @empty
+                                    <p class="text-xs text-gray-500 col-span-full">Tidak ada data tujuan.</p>
+                                    @endforelse
+                                </div>
+                                @error('tujuan_disposisi') <span class="text-red-600 text-sm mt-1">{{ $message }}</span> @enderror
+                            </div>
+                            <div class="mt-4">
+                                <label for="tujuan_manual" class="block text-sm font-medium text-gray-700">Atau Ketik Tujuan Manual (Jika tidak ada di daftar)</label>
+                                <input type="text" id="tujuan_manual" wire:model="tujuan_manual" class="mt-1 block w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5" placeholder="Contoh: Tim Logistik">
+                                @error('tujuan_manual') <span class="text-red-600 text-sm mt-1">{{ $message }}</span> @enderror
+                            </div>
+                            {{-- Instruksi (CHECKBOX) --}}
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700">Instruksi <span class="text-red-500">*</span></label>
+                                <div class="mt-2 grid grid-cols-2 md:grid-cols-3 gap-x-4 gap-y-2">
+                                    @forelse($daftarKategori as $kategori)
+                                    <label for="kategori_{{ $kategori->id }}" class="flex items-center space-x-2">
+                                        <input type="checkbox" id="kategori_{{ $kategori->id }}" wire:model="kategori_disposisi_id" value="{{ $kategori->id }}" class="rounded ...">
+                                        <span class="text-sm text-gray-800">{{ $kategori->nama }}</span>
+                                    </label>
+                                    @empty
+                                    <p class="text-xs text-gray-500 col-span-full">Tidak ada data instruksi.</p>
+                                    @endforelse
+                                </div>
+                                @error('kategori_disposisi_id') <span class="text-red-600 text-sm mt-1">{{ $message }}</span> @enderror
+                            </div>
+
+                            {{-- Catatan Tambahan --}}
+                            <div>
+                                <label for="instruksi_disposisi" class="block text-sm font-medium text-gray-700">Catatan Tambahan (opsional)</label>
+                                <textarea id="instruksi_disposisi" wire:model="instruksi_disposisi" rows="3" class="mt-1 block w-full ..."></textarea>
+                                @error('instruksi_disposisi') <span class="text-red-600 text-sm mt-1">{{ $message }}</span> @enderror
                             </div>
                         </div>
                         @endif
+
+                        <div class="flex justify-end pt-4 border-t border-gray-200 mt-6 space-x-3">
+                            <button type="button" wire:click="closeModal" class="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-200 rounded-md hover:bg-gray-300">Batal</button>
+                            <!-- === INI BAGIAN YANG DIPERBAIKI === -->
+                            <button type="submit" wire:loading.attr="disabled" wire:target="simpan" class="inline-flex items-center px-6 py-2 text-sm font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700">
+                                <span wire:loading.remove wire:target="simpan">Simpan Surat</span>
+                            </button>
+                        </div>
+                    </form>
                 </div>
-                <div class="flex justify-end pt-4 border-t border-gray-200 mt-6 space-x-3">
-                    <button type="button" wire:click="closeModal" class="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-200 rounded-md hover:bg-gray-300">
-                        Batal
-                    </button>
-                    <button type="submit" wire:loading.attr="disabled" wire:target="simpan" class="inline-flex items-center px-6 py-2 text-sm font-semibold text-white bg-blue-600 rounded-lg shadow-md hover:bg-blue-700">
-                        <span wire:loading.remove wire:target>Simpan Surat</span>
-                        {{-- <span wire:loading wire:target>Menyimpan...</span> --}}
-                    </button>
-                </div>
-                </form>
             </div>
         </div>
+        @endif
+
     </div>
-    @endif
-
-
 </div>
-</div>
-<script>
-    document.addEventListener('livewire:load', () => {
-        Livewire.on('init-tom-select', () => {
-            console.log("jalankan");
-            // Hancurkan instance TomSelect yang mungkin sudah ada sebelumnya untuk menghindari duplikasi
-            if (document.getElementById('kategoriSelect').tomselect) {
-                document.getElementById('kategoriSelect').tomselect.destroy();
-            }
-
-            // Inisialisasi TomSelect pada elemen
-            const el = document.getElementById('kategoriSelect');
-            const ts = new TomSelect(el, {
-                create: false
-                , sortField: {
-                    field: "text"
-                    , direction: "asc"
-                }
-                , placeholder: "Cari atau pilih...",
-                // Sync nilai TomSelect ke Livewire saat ada perubahan
-                onChange: function(value) {
-                    @this.set('kategori_disposisi_id', value);
-                }
-            });
-        });
-    });
-
-</script>

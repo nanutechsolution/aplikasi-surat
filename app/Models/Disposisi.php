@@ -5,42 +5,48 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Disposisi extends Model
 {
     use HasFactory;
 
-    protected $table = 'disposisi';
+    // Izinkan semua kolom diisi secara massal
+    protected $table = "disposisi";
+    protected $guarded = ['id'];
 
-    protected $fillable = [
-        'surat_masuk_id',
-        'dari_user_id',
-        'kepada_user_id',
-        'isi_disposisi',
-        'kategori_disposisi_id',
-        'status',
-    ];
-
-    public function kategori()
-    {
-        return $this->belongsTo(\App\Models\KategoriDisposisi::class, 'kategori_disposisi_id');
-    }
-
-    // Relasi: Satu disposisi dimiliki oleh satu surat
+    /**
+     * Mendapatkan surat masuk yang memiliki disposisi ini.
+     */
     public function suratMasuk(): BelongsTo
     {
         return $this->belongsTo(SuratMasuk::class);
     }
 
-    // Relasi: Satu disposisi dikirim oleh satu user (pengirim)
+    /**
+     * Mendapatkan user yang mengirim disposisi.
+     */
     public function pengirim(): BelongsTo
     {
         return $this->belongsTo(User::class, 'dari_user_id');
     }
 
-    // Relasi: Satu disposisi ditujukan ke satu user (penerima)
-    public function penerima(): BelongsTo
+    /**
+     * Mendapatkan semua user penerima disposisi.
+     */
+    public function penerima(): BelongsToMany
     {
-        return $this->belongsTo(User::class, 'kepada_user_id');
+        return $this->belongsToMany(User::class, 'disposisi_penerima')
+            ->using(DisposisiPenerima::class) // TAMBAHKAN INI
+            ->withPivot('status', 'tanggal_baca', 'tujuan_manual');
+    }
+
+    /**
+     * Mendapatkan semua instruksi untuk disposisi ini.
+     */
+    public function instruksi(): BelongsToMany
+    {
+        // Terhubung ke model KategoriDisposisi melalui tabel pivot 'disposisi_instruksi'
+        return $this->belongsToMany(KategoriDisposisi::class, 'disposisi_instruksi');
     }
 }
