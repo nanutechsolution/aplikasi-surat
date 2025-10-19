@@ -15,19 +15,20 @@ new class extends Component
         $this->redirect('/', navigate: true);
     }
 }; ?>
-<nav x-data="{ open: false }" class="bg-blue border-b border-gray-100 sticky top-0 z-50 shadow-lg">
+<nav x-data="{ open: false }" class="bg-gradient-to-r from-blue-400 via-indigo-600 to-white-800 border-b border-blue-100 sticky top-0 z-50 shadow-lg">
     <!-- Primary Navigation Menu -->
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 ">
         <div class="flex justify-between h-16">
             <div class="flex">
                 <!-- Logo -->
-                <div class="text-2xl font-bold text-blue-600 shrink-0 flex items-center">
-                    {{-- <x-application-logo class="w-20 h-20 fill-current text-gray-500" /> --}}
-                    <a href="/">P2TSP-24</a>
+                <div class="text-2xl font-bold text-red-600 shrink-0 flex items-center space-x-2">
+                    <a href="/" class="flex items-center space-x-2">
+                        <img src="{{ asset('logo/logo.jpg') }}" alt="Logo P2TSP-24" class="h-10 w-auto">
+                        <span>P2TSP-24</span>
+                    </a>
                 </div>
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')" wire:navigate>
                         {{ __('Dashboard') }}
                     </x-nav-link>
@@ -62,8 +63,8 @@ new class extends Component
                                 <button class="inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium leading-5
     transition duration-150 ease-in-out h-full
     {{ request()->routeIs('pengguna') || request()->routeIs('log.aktivitas')
-        ? 'border-indigo-500 text-gray-900'
-        : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300' }}">
+        ? 'border-indigo-500 text-white-900'
+        : 'border-transparent text-gray-500 hover:text-white-700 hover:border-white-300' }}">
                                     {{ __('Admin') }}
                                     <svg class="ms-1 h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
