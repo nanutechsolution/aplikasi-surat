@@ -64,7 +64,7 @@ new class extends Component
     transition duration-150 ease-in-out h-full
     {{ request()->routeIs('pengguna') || request()->routeIs('log.aktivitas')
         ? 'border-indigo-500 text-white-900'
-        : 'border-transparent text-gray-500 hover:text-white-700 hover:border-white-300' }}">
+        : 'border-transparent text-white-500 hover:text-white-700 hover:border-white-300' }}">
                                     {{ __('Admin') }}
                                     <svg class="ms-1 h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
