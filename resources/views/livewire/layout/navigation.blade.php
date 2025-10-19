@@ -18,7 +18,6 @@ new class extends Component {
             {{-- Logo --}}
             <div class="flex items-center space-x-3">
                 <a href="/" class="flex items-center space-x-2">
-
                     <img src="{{ asset('logo/logos.png') }}" alt="Logo P2TSP-24" class="h-12 w-12 rounded-full bg-white p-1 border-2 border-blue-400 glow" />
                     <span class="text-2xl font-bold text-red-500 tracking-wide drop-shadow-[0_1px_2px_rgba(0,0,0,0.25)]">
                         P2TSP-24
@@ -26,19 +25,16 @@ new class extends Component {
 
                 </a>
             </div>
-
             {{-- Main Nav --}}
             <div class="hidden sm:flex space-x-8 items-center">
                 <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')" wire:navigate>
                     {{ __('Dashboard') }}
                 </x-nav-link>
-
                 @hasanyrole('admin|direktur')
                 <x-nav-link :href="route('surat-masuk')" :active="request()->routeIs('surat-masuk')" wire:navigate>
                     {{ __('Surat Masuk') }}
                 </x-nav-link>
                 @endhasanyrole
-
                 @can('kelola surat')
                 <x-nav-link :href="route('surat-keluar')" :active="request()->routeIs('surat-keluar')" wire:navigate>
                     {{ __('Surat Keluar') }}
