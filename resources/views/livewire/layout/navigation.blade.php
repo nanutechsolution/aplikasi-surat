@@ -23,7 +23,7 @@ new class extends Component
                 <!-- Logo -->
                 <div class="text-2xl font-bold text-red-600 shrink-0 flex items-center space-x-2">
                     <a href="/" class="flex items-center space-x-2">
-                        <img src="{{ asset('logo/logo.jpg') }}" alt="Logo P2TSP-24" class="h-10 w-auto">
+                        <img src="{{ asset('logo/logos.png') }}" alt="Logo P2TSP-24" class="h-10 w-auto">
                         <span>P2TSP-24</span>
                     </a>
                 </div>
@@ -63,8 +63,8 @@ new class extends Component
                                 <button class="inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium leading-5
     transition duration-150 ease-in-out h-full
     {{ request()->routeIs('pengguna') || request()->routeIs('log.aktivitas')
-        ? 'border-indigo-500 text-white-900'
-        : 'border-transparent text-white-500 hover:text-white-700 hover:border-white-300' }}">
+        ? 'border-indigo-500 text-white'
+       : 'border-transparent text-white/70 hover:text-white hover:border-white/50' }}">
                                     {{ __('Admin') }}
                                     <svg class="ms-1 h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
